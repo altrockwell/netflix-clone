@@ -92,8 +92,9 @@ function Row({ title, movies }: Props) {
 								(i === movies.length - 1 && lastRowRef) ||
 								null
 							}
+							key={movie.id}
 						>
-							<Thumbnail key={movie.id} movie={movie} />
+							<Thumbnail movie={movie} />
 						</div>
 					))}
 				</div>
