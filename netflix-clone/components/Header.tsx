@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BellIcon, SearchIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
+import { Movie } from '../typings';
 
 function Header() {
 	const [isScrolled, setIsScrolled] = useState(false);
@@ -17,11 +18,11 @@ function Header() {
 		window.addEventListener('scroll', handleScroll);
 
 		return () => {
-			window.addEventListener('scroll', handleScroll);
+			window.removeEventListener('scroll', handleScroll);
 		};
 	}, []);
 	return (
-		<header className={`${isScrolled && 'bg-[#141414'}`}>
+		<header className={`${isScrolled && 'bg-[#141414]'}`}>
 			<div className='flex items-center space-x-2 md:space-x-10'>
 				<img
 					src='https://rb.gy/ulxxee'
