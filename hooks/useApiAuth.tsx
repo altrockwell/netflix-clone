@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useMemo, useState } from 'react'
 import { apiBaseUrl } from '../constants/movie'
+import axios from 'axios'
 
 interface User {
 	name: string
@@ -10,7 +11,7 @@ interface User {
 
 interface IAuth {
 	user: User | null
-	signUp: (name: string, email: string, password: string) => Promise<void>
+	signUp: (name: string, email: string, password: string) => void
 	// signIn: (email: string, password: string) => Promise<void>
 	// logOut: () => Promise<void>
 	error: string | null
@@ -38,19 +39,18 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
 	const signUp = async (name: string, email: string, password: string) => {
 		setLoading(true)
-		return await fetch(`${apiBaseUrl}/signup`, {
-			method: 'POST',
-			body: JSON.stringify({ name, email, password }),
-		})
-			.then((userCredential) => {
-				console.log(userCredential)
-				if (userCredential) {
-					console.log(userCredential)
-				} else {
-					console.log('nothing return')
-				}
+
+		try {
+			const res = await axios.post(`${apiBaseUrl}/signup`, {
+				name,
+				email,
+				password,
 			})
-			.catch((err) => console.log(err))
+			console.log(res)
+		} catch (error) {
+			console.log(error)
+		}
+		setLoading(false)
 	}
 	const signIn = async (email: string, password: string) => {}
 	const logOut = async () => {}
@@ -62,7 +62,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
 	return (
 		<AuthContext.Provider value={memoedValue}>
-			{!initialLoading && children}
+			{!loading && children}
 		</AuthContext.Provider>
 	)
 }

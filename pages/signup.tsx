@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import React from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { apiBaseUrl } from '../constants/movie'
 import useAuth from '../hooks/useApiAuth'
 
 interface Inputs {
@@ -24,12 +23,8 @@ function Signup() {
 		email,
 		password,
 	}) => {
-		await fetch(`${apiBaseUrl}/signup`, {
-			method: 'POST',
-			headers: { 'content-type': 'application/json' },
-			body: JSON.stringify({ name, email, password }),
-		}).then((res) => console.log(res))
-		// console.log()
+		console.log('hey')
+		await signUp(name, email, password)
 	}
 
 	// console.log('hello')
